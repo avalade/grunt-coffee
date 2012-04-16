@@ -16,9 +16,9 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  grunt.registerTask('coffee', 'Compile CoffeeScript files', function() {
+  grunt.registerMultiTask('coffee', 'Compile CoffeeScript files', function() {
     var dest = this.file.dest;
-    grunt.file.expandFiles(this.file.src).forEach(function(filepath, dest) {
+    grunt.file.expandFiles(this.file.src).forEach(function(filepath) {
       grunt.helper('coffee', filepath, dest);
     });
 
