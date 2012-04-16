@@ -15,14 +15,35 @@ grunt.loadNpmTasks('grunt-coffee');
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
 
 ## Documentation
-_(Coming soon)_
+You'll need to install `grunt-coffee` first:
+
+    npm install grunt-coffee
+
+Then modify your `grunt.js` file by adding the following line:
+
+    grunt.loadNpmTasks('grunt-coffee');
+
+Then add some configuration for the plugin like so:
+
+    grunt.initConfig({
+        ...
+        coffee: {
+          app: {
+            src: ['path/to/coffee/files/*.coffee'],
+            dest: 'where/you/want/your/js/files'
+          }
+        },
+        ...
+    });
+
+Then just run `grunt coffee` and enjoy!
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
-_(Nothing yet)_
+0.0.1 - The bare minimum necessary... don't expect it to work
 
 ## License
-Copyright (c) 2012 Aaron D. Valade  
+Copyright (c) 2012 Aaron D. Valade
 Licensed under the MIT license.
