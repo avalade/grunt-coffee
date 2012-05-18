@@ -30,7 +30,10 @@ Then add some configuration for the plugin like so:
         coffee: {
           app: {
             src: ['path/to/coffee/files/*.coffee'],
-            dest: 'where/you/want/your/js/files'
+            dest: 'where/you/want/your/js/files',
+            options: {
+                bare: true
+            }
           }
         },
         ...
@@ -38,10 +41,19 @@ Then add some configuration for the plugin like so:
 
 Then just run `grunt coffee` and enjoy!
 
+Grunt Coffee will, by default, run coffee with the `--bare` flag set.
+If you want to run it with the top level variable safety, make sure
+you set your options to:
+
+    options: {
+        bare: false
+    }
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
+0.0.2 - added the options object, thanks [Derek](https://github.com/dlindahl)!
 0.0.1 - The bare minimum necessary... don't expect it to work
 
 ## License

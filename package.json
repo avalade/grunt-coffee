@@ -1,12 +1,18 @@
 {
   "name": "grunt-coffee",
   "description": "JavaScripts your Coffee",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/avalade/grunt-coffee",
   "author": {
     "name": "Aaron D. Valade",
     "email": "adv@alum.mit.edu"
   },
+  "contributors": [
+    {
+      "name": "Derek Lindahl",
+      "url": "https://github.com/dlindahl"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/avalade/grunt-coffee.git"
