@@ -21,7 +21,6 @@
     }
   ],
   "main": "grunt.js",
-  "bin": "bin/grunt-coffee",
   "engines": {
     "node": "*"
   },

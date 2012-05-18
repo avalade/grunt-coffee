@@ -34,7 +34,7 @@ exports['coffee'] = {
     });
   },
   'helper': function(test) {
-    test.expect(1);
+    test.expect(2);
     var files = [
       'test/fixtures/hello_world.coffee'
     ];
@@ -44,6 +44,12 @@ exports['coffee'] = {
     test.equal(grunt.file.read(dest + '/hello_world.js'),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
+
+    grunt.helper('coffee', files, dest, { bare:false });
+    test.equal(grunt.file.read(dest + '/hello_world.js'),
+               '(function() {\n\n  console.log("Hello CoffeeScript!");\n\n}).call(this);\n',
+               'it should compile the coffee');
+
     test.done();
   }
 };
