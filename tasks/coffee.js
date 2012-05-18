@@ -17,9 +17,10 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('coffee', 'Compile CoffeeScript files', function() {
-    var dest = this.file.dest;
+    var dest = this.file.dest,
+        options = this.data.options;
     grunt.file.expandFiles(this.file.src).forEach(function(filepath) {
-      grunt.helper('coffee', filepath, dest);
+      grunt.helper('coffee', filepath, dest, options);
     });
 
     if (grunt.task.current.errorCount) {
