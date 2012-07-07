@@ -25,7 +25,7 @@ var grunt = require('grunt'),
 exports['coffee'] = {
   setUp: function(done) {
     // setup here
-    path.exists('tmp/coffee', function(exists) {
+    fs.exists('tmp/coffee', function(exists) {
       if (exists) {
         fs.rmdir('tmp/coffee', done);
       } else {
