@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     try {
       js = coffee.compile(grunt.file.read(src), options);
     } catch (e) {
-      grunt.log.error(e);
+      grunt.log.error("Error in " + src + ":\n" + e);
     }
     if (this.errorCount) { return false; }
     grunt.file.write(dest, js);
