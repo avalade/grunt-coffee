@@ -36,7 +36,7 @@ module.exports = function(grunt) {
     var coffee = require('coffee-script'),
         js = '';
 
-    var dest = path.join(destPath, 
+    var dest = path.join(destPath,
                          path.basename(src, '.coffee') + '.js');
 
     options = options || {};
@@ -46,10 +46,10 @@ module.exports = function(grunt) {
 
     try {
       js = coffee.compile(grunt.file.read(src), options);
-      grunt.file.write(dest, js);
     } catch (e) {
-      grunt.log.error("Unable to compile your coffee", e);
+      grunt.log.error(e);
     }
+    if (this.errorCount) { return false; }
+    grunt.file.write(dest, js);
   });
-
 };
