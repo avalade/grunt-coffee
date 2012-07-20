@@ -48,7 +48,8 @@ module.exports = function(grunt) {
       js = coffee.compile(grunt.file.read(src), options);
       grunt.file.write(dest, js);
     } catch (e) {
-      grunt.log.error("Unable to compile your coffee", e);
+      grunt.log.error("Error in " + src + ":\n" + e);
+      return false;
     }
   });
 
