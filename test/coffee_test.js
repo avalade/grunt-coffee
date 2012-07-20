@@ -22,34 +22,52 @@ var grunt = require('grunt'),
     test.ifError(value)
 */
 
+var src = 'test/fixtures/hello_world.coffee';
+var destFolder = 'tmp/js';
+var relativeDest = function(src) {
+  var out = path.resolve(path.dirname(src),path.basename(src, '.coffee') + '.js');
+  return out;
+};
+
 exports['coffee'] = {
   setUp: function(done) {
-    // setup here
-    fs.exists('tmp/coffee', function(exists) {
-      if (exists) {
-        fs.rmdir('tmp/coffee', done);
-      } else {
-        done();
-      }
-    });
+    done();
   },
+
+  tearDown: function(done) {
+    if (path.existsSync(destFolder)) {
+      if ( path.existsSync(destFolder + '/hello_world.js') ) {
+        fs.unlinkSync(destFolder + '/hello_world.js');
+      }
+      fs.rmdirSync(destFolder);
+    }
+    if (path.existsSync(relativeDest(src))) {
+      fs.unlinkSync(relativeDest(src));
+    }
+    done();
+  },
+
   'helper': function(test) {
     test.expect(2);
-    var files = [
-      'test/fixtures/hello_world.coffee'
-    ];
-    var dest = 'tmp/js';
-    // tests here
-    grunt.helper('coffee', files, dest);
-    test.equal(grunt.file.read(dest + '/hello_world.js'),
+
+    grunt.helper('coffee', [src], destFolder);
+    test.equal(grunt.file.read(destFolder + '/hello_world.js'),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
 
-    grunt.helper('coffee', files, dest, { bare:false });
-    test.equal(grunt.file.read(dest + '/hello_world.js'),
+    grunt.helper('coffee', [src], destFolder, { bare:false });
+    test.equal(grunt.file.read(destFolder + '/hello_world.js'),
                '(function() {\n\n  console.log("Hello CoffeeScript!");\n\n}).call(this);\n',
                'it should compile the coffee');
 
+    test.done();
+  },
+
+  'helper-nodest': function(test) {
+    grunt.helper('coffee', [src], null);
+    test.equal(grunt.file.read(relativeDest(src)),
+               '\nconsole.log("Hello CoffeeScript!");\n',
+               'it should compile the coffee');
     test.done();
   }
 };
