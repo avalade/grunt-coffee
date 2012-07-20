@@ -2,6 +2,8 @@ var grunt = require('grunt'),
     fs = require('fs'),
     path = require('path');
 
+fs.existsSync = fs.existsSync ? fs.existsSync : path.existsSync;
+
 /*
   ======== A Handy Little Nodeunit Reference ========
   https://github.com/caolan/nodeunit
@@ -35,13 +37,13 @@ exports['coffee'] = {
   },
 
   tearDown: function(done) {
-    if (path.existsSync(destFolder)) {
-      if ( path.existsSync(destFolder + '/hello_world.js') ) {
+    if (fs.existsSync(destFolder)) {
+      if ( fs.existsSync(destFolder + '/hello_world.js') ) {
         fs.unlinkSync(destFolder + '/hello_world.js');
       }
       fs.rmdirSync(destFolder);
     }
-    if (path.existsSync(relativeDest(src))) {
+    if (fs.existsSync(relativeDest(src))) {
       fs.unlinkSync(relativeDest(src));
     }
     done();
