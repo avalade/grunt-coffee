@@ -18,9 +18,10 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('coffee', 'Compile CoffeeScript files', function() {
     var dest = this.file.dest,
-        options = this.data.options;
+        options = this.data.options,
+        extension = this.data.extension;
     grunt.file.expandFiles(this.file.src).forEach(function(filepath) {
-      grunt.helper('coffee', filepath, dest, options);
+      grunt.helper('coffee', filepath, dest, options, extension);
     });
 
     if (grunt.task.current.errorCount) {
@@ -32,12 +33,13 @@ module.exports = function(grunt) {
   // HELPERS
   // ==========================================================================
 
-  grunt.registerHelper('coffee', function(src, destPath, options) {
+  grunt.registerHelper('coffee', function(src, destPath, options, extension) {
     var coffee = require('coffee-script'),
         js = '';
 
     destPath = destPath ? destPath : path.dirname(src);
-    var dest = path.join(destPath, path.basename(src, '.coffee') + '.js');
+    extension = extension ? extension : '.js';
+    var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
 
     options = options || {};
     if( options.bare !== false ) {
