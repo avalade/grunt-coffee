@@ -32,12 +32,13 @@ module.exports = function(grunt) {
   // HELPERS
   // ==========================================================================
 
-  grunt.registerHelper('coffee', function(src, destPath, options) {
+  grunt.registerHelper('coffee', function(src, destPath, options, extension) {
     var coffee = require('coffee-script'),
         js = '';
 
     destPath = destPath ? destPath : path.dirname(src);
-    var dest = path.join(destPath, path.basename(src, '.coffee') + '.js');
+    extension = extension ? extension : '.js';
+    var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
 
     options = options || {};
     if( options.bare !== false ) {
