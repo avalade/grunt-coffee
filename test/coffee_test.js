@@ -26,10 +26,8 @@ fs.existsSync = fs.existsSync ? fs.existsSync : path.existsSync;
 
 var src = 'test/fixtures/hello_world.coffee';
 var destFolder = 'tmp/js';
-var relativeDest = function(src) {
-  var out = path.resolve(path.dirname(src),path.basename(src, '.coffee') + '.js');
-  return out;
-};
+var dest1 = 'test/fixtures/hello_world.js';
+var dest2 = 'test/fixtures/hello_world.coffee.js';
 
 exports['coffee'] = {
   setUp: function(done) {
@@ -43,8 +41,12 @@ exports['coffee'] = {
       }
       fs.rmdirSync(destFolder);
     }
-    if (fs.existsSync(relativeDest(src))) {
-      fs.unlinkSync(relativeDest(src));
+
+    if (fs.existsSync(dest1)) {
+      fs.unlinkSync(dest1);
+    }
+    if (fs.existsSync(dest2)) {
+      fs.unlinkSync(dest2);
     }
     done();
   },
@@ -66,10 +68,18 @@ exports['coffee'] = {
   },
 
   'helper-nodest': function(test) {
-    grunt.helper('coffee', [src], null);
-    test.equal(grunt.file.read(relativeDest(src)),
+    test.expect(1);
+    grunt.helper('coffee', [src]);
+    test.equal(grunt.file.read(dest1),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
+    test.done();
+  },
+
+  'helper-extension': function(test) {
+    test.expect(1);
+    grunt.helper('coffee', [src], null, {}, '.coffee.js');
+    test.ok(fs.existsSync(dest2));
     test.done();
   }
 };
