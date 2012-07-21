@@ -1,7 +1,7 @@
 {
   "name": "grunt-coffee",
   "description": "JavaScripts your Coffee",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/avalade/grunt-coffee",
   "author": {
     "name": "Aaron D. Valade",
