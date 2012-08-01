@@ -40,7 +40,9 @@ module.exports = function(grunt) {
 
     destPath = destPath ? destPath : path.dirname(src);
     extension = extension ? extension : '.js';
-    var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
+    var prefix = src.replace(options.basePath, '');
+    prefix = prefix.replace(path.basename(src), '');
+    var dest = path.join(destPath, prefix, path.basename(src, '.coffee') + extension);
 
     options = options || {};
     if( options.bare !== false ) {
