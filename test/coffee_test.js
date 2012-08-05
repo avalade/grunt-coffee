@@ -28,6 +28,7 @@ var src = 'test/fixtures/hello_world.coffee';
 var destFolder = 'tmp/js';
 var dest1 = 'test/fixtures/hello_world.js';
 var dest2 = 'test/fixtures/hello_world.coffee.js';
+var dest3 = path.join(destFolder, dest1);
 
 exports['coffee'] = {
   setUp: function(done) {
@@ -39,6 +40,11 @@ exports['coffee'] = {
       if ( fs.existsSync(destFolder + '/hello_world.js') ) {
         fs.unlinkSync(destFolder + '/hello_world.js');
       }
+      if ( fs.existsSync(dest3)) {
+        fs.unlinkSync(dest3);
+        fs.rmdirSync(destFolder + '/test/fixtures');
+        fs.rmdirSync(destFolder + '/test');
+      }
       fs.rmdirSync(destFolder);
     }
 
@@ -47,6 +53,12 @@ exports['coffee'] = {
     }
     if (fs.existsSync(dest2)) {
       fs.unlinkSync(dest2);
+    }
+    if (fs.existsSync(dest2)) {
+      fs.unlinkSync(dest2);
+    }
+    if (fs.existsSync(dest3)) {
+      fs.unlinkSync(dest3);
     }
     done();
   },
@@ -71,6 +83,15 @@ exports['coffee'] = {
     test.expect(1);
     grunt.helper('coffee', [src]);
     test.equal(grunt.file.read(dest1),
+               '\nconsole.log("Hello CoffeeScript!");\n',
+               'it should compile the coffee');
+    test.done();
+  },
+
+  'helper-dirs': function(test) {
+    test.expect(1);
+    grunt.helper('coffee', [src], destFolder, { dirs:true });
+    test.equal(grunt.file.read(dest3),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
     test.done();

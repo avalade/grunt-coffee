@@ -49,6 +49,12 @@ you set your options to:
         bare: false
     }
 
+If you have `dest` path and want to preserve the directory structure of your coffee files, pass the `dirs` option".
+
+    options: {
+        dirs: true
+    }
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
