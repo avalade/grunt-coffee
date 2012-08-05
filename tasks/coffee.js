@@ -38,11 +38,17 @@ module.exports = function(grunt) {
     var coffee = require('coffee-script'),
         js = '';
 
-    destPath = destPath ? destPath : path.dirname(src);
-    extension = extension ? extension : '.js';
-    var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
-
     options = options || {};
+    extension = extension ? extension : '.js';
+
+    if( destPath && options.dirs ){
+      destPath = path.join(destPath, path.dirname(src));
+    } else if( !destPath ){
+      destPath = path.dirname(src);
+    }
+
+    var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
+    
     if( options.bare !== false ) {
       options.bare = true;
     }
