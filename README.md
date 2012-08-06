@@ -49,19 +49,25 @@ you set your options to:
         bare: false
     }
 
-If you have `dest` path and want to preserve the directory structure of your coffee files, pass the `dirs` option".
+If you have `dest` path and want to preserve the directory structure of your coffee files, pass the `preserve_dirs` option".
 
     options: {
-        dirs: true
+        preserve_dirs: true
     }
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
-0.0.3 - added relative compilation and compound file suffixes, thanks [Pete](https://github.com/petebacondarwin).  Also added real error messages, thanks [Tim](https://github.com/timoxley)
+0.0.4 - added preservation of directory structure, thanks
+[Kevin](https://github.com/rockwood).
 
-0.0.2 - added the options object, thanks [Derek](https://github.com/dlindahl)!
+0.0.3 - added relative compilation and compound file suffixes, thanks
+[Pete](https://github.com/petebacondarwin).  Also added real error
+messages, thanks [Tim](https://github.com/timoxley)
+
+0.0.2 - added the options object, thanks
+[Derek](https://github.com/dlindahl)!
 
 0.0.1 - The bare minimum necessary... don't expect it to work
 

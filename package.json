@@ -1,7 +1,7 @@
 {
   "name": "grunt-coffee",
   "description": "JavaScripts your Coffee",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/avalade/grunt-coffee",
   "author": {
     "name": "Aaron D. Valade",
@@ -11,6 +11,15 @@
     {
       "name": "Derek Lindahl",
       "url": "https://github.com/dlindahl"
+    },{
+      "name": "Tim Oxley",
+      "url": "https://github.com/timoxley"
+    },{
+      "name": "Pete Bacon Darwin",
+      "url": "https://github.com/petebacondarwin"
+    },{
+      "name": "Kevin Rockwood",
+      "url": "https://github.com/Rockwood"
     }
   ],
   "repository": {

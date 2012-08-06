@@ -25,10 +25,8 @@ fs.existsSync = fs.existsSync ? fs.existsSync : path.existsSync;
 */
 
 var src = 'test/fixtures/hello_world.coffee';
-var destFolder = 'tmp/js';
-var dest1 = 'test/fixtures/hello_world.js';
-var dest2 = 'test/fixtures/hello_world.coffee.js';
-var dest3 = path.join(destFolder, dest1);
+var outputFolder = 'tmp/js';
+var expectedJSFile = 'test/fixtures/hello_world.js';
 
 exports['coffee'] = {
   setUp: function(done) {
@@ -36,43 +34,49 @@ exports['coffee'] = {
   },
 
   tearDown: function(done) {
-    if (fs.existsSync(destFolder)) {
-      if ( fs.existsSync(destFolder + '/hello_world.js') ) {
-        fs.unlinkSync(destFolder + '/hello_world.js');
-      }
-      if ( fs.existsSync(dest3)) {
-        fs.unlinkSync(dest3);
-        fs.rmdirSync(destFolder + '/test/fixtures');
-        fs.rmdirSync(destFolder + '/test');
-      }
-      fs.rmdirSync(destFolder);
-    }
+    /** A simple rm -rf function **/
+    var rmFiles = function(filesToDelete) {
+      function helper(filesToDelete) {
+        if (filesToDelete.length === 0) {
+          return;
+        }
 
-    if (fs.existsSync(dest1)) {
-      fs.unlinkSync(dest1);
+        var file = filesToDelete.shift();
+        var stats = fs.statSync(file);
+        if (stats.isDirectory()) {
+          var subfiles = fs.readdirSync(file);
+          for (var i = 0; i < subfiles.length; i++) {
+            filesToDelete.push(path.join(file, subfiles[i]));
+          }
+        } else {
+          fs.unlinkSync(file);
+          if (fs.readdirSync(path.dirname(file)).length === 0) {
+            fs.rmdirSync(path.dirname(file));
+          }
+        }
+        helper(filesToDelete);
+      }
+      
+      helper(filesToDelete);
+    };
+
+    if (fs.existsSync(expectedJSFile)) {
+      fs.unlinkSync(expectedJSFile);
     }
-    if (fs.existsSync(dest2)) {
-      fs.unlinkSync(dest2);
-    }
-    if (fs.existsSync(dest2)) {
-      fs.unlinkSync(dest2);
-    }
-    if (fs.existsSync(dest3)) {
-      fs.unlinkSync(dest3);
-    }
+    rmFiles([outputFolder]);
     done();
   },
 
   'helper': function(test) {
     test.expect(2);
 
-    grunt.helper('coffee', [src], destFolder);
-    test.equal(grunt.file.read(destFolder + '/hello_world.js'),
+    grunt.helper('coffee', [src], outputFolder);
+    test.equal(grunt.file.read(outputFolder + '/hello_world.js'),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
 
-    grunt.helper('coffee', [src], destFolder, { bare:false });
-    test.equal(grunt.file.read(destFolder + '/hello_world.js'),
+    grunt.helper('coffee', [src], outputFolder, { bare:false });
+    test.equal(grunt.file.read(outputFolder + '/hello_world.js'),
                '(function() {\n\n  console.log("Hello CoffeeScript!");\n\n}).call(this);\n',
                'it should compile the coffee');
 
@@ -82,7 +86,7 @@ exports['coffee'] = {
   'helper-nodest': function(test) {
     test.expect(1);
     grunt.helper('coffee', [src]);
-    test.equal(grunt.file.read(dest1),
+    test.equal(grunt.file.read(expectedJSFile),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
     test.done();
@@ -90,8 +94,8 @@ exports['coffee'] = {
 
   'helper-dirs': function(test) {
     test.expect(1);
-    grunt.helper('coffee', [src], destFolder, { dirs:true });
-    test.equal(grunt.file.read(dest3),
+    grunt.helper('coffee', [src], outputFolder, { preserve_dirs:true });
+    test.equal(grunt.file.read(path.join(outputFolder, expectedJSFile)),
                '\nconsole.log("Hello CoffeeScript!");\n',
                'it should compile the coffee');
     test.done();
@@ -99,8 +103,8 @@ exports['coffee'] = {
 
   'helper-extension': function(test) {
     test.expect(1);
-    grunt.helper('coffee', [src], null, {}, '.coffee.js');
-    test.ok(fs.existsSync(dest2));
+    grunt.helper('coffee', [src], outputFolder, {}, '.coffee.js');
+    test.ok(fs.existsSync(path.join(outputFolder, "hello_world.coffee.js")));
     test.done();
   }
 };

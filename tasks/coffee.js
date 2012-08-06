@@ -27,6 +27,8 @@ module.exports = function(grunt) {
 
     if (grunt.task.current.errorCount) {
       return false;
+    } else {
+      return true;
     }
   });
 
@@ -41,7 +43,7 @@ module.exports = function(grunt) {
     options = options || {};
     extension = extension ? extension : '.js';
 
-    if( destPath && options.dirs ){
+    if( destPath && options.preserve_dirs ){
       destPath = path.join(destPath, path.dirname(src));
     } else if( !destPath ){
       destPath = path.dirname(src);
@@ -56,6 +58,7 @@ module.exports = function(grunt) {
     try {
       js = coffee.compile(grunt.file.read(src), options);
       grunt.file.write(dest, js);
+      return true;
     } catch (e) {
       grunt.log.error("Error in " + src + ":\n" + e);
       return false;
