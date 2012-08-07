@@ -59,7 +59,7 @@ Also, if you just want to preserve the directory structure, starting from a base
 
     options: {
         preserve_dirs: true,
-	base_path: 'path/to'
+        base_path: 'path/to'
     }
 
 This will create the files under `where/you/want/your/js/files/coffee/files/`.
@@ -68,6 +68,10 @@ This will create the files under `where/you/want/your/js/files/coffee/files/`.
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
+0.0.5 - added `base_path` option, thanks
+[siriux](https://github.com/siriux) and
+[William](https://github.com/wlepinski).
+
 0.0.4 - added preservation of directory structure, thanks
 [Kevin](https://github.com/rockwood).  Also added a unique copy of the
 options for each call to the helper, thanks [Ken](https://github.com/elfsternberg).

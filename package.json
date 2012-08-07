@@ -1,7 +1,7 @@
 {
   "name": "grunt-coffee",
   "description": "JavaScripts your Coffee",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/avalade/grunt-coffee",
   "author": {
     "name": "Aaron D. Valade",
@@ -23,6 +23,9 @@
     },{
       "name": "Ken 'Elf' Matheiu Sternberg",
       "url": "https://github.com/elfsternberg"
+    },{
+      "name": "siriux",
+      "url": "https://github.com/siriux"
     }
   ],
   "repository": {
