@@ -63,7 +63,10 @@ exports['coffee'] = {
     if (fs.existsSync(expectedJSFile)) {
       fs.unlinkSync(expectedJSFile);
     }
-    rmFiles([outputFolder]);
+
+    if (fs.existsSync(outputFolder)) {
+      rmFiles([outputFolder]);
+    }
     done();
   },
 
@@ -104,10 +107,19 @@ exports['coffee'] = {
   'helper-dirs-base': function(test) {
     var base = 'test';
     test.expect(1);
-    grunt.helper('coffee', [src], outputFolder, { preserve_dirs:true, base_path:base });
-    test.equal(grunt.file.read(path.join(outputFolder, expectedJSFile.replace(new RegExp('^'+base), ''))),
-               '\nconsole.log("Hello CoffeeScript!");\n',
-               'it should compile the coffee');
+    grunt.helper('coffee', 
+                 [src], 
+                 outputFolder, 
+                 { 
+                   preserve_dirs:true, 
+                   base_path:base 
+                 });
+    test.equal(
+      grunt.file.read(
+        path.join(outputFolder, expectedJSFile.replace(new RegExp('^'+base), ''))
+      ),
+      '\nconsole.log("Hello CoffeeScript!");\n',
+      'it should compile the coffee');
     test.done();
   },
 
