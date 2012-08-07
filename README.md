@@ -60,7 +60,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 0.0.4 - added preservation of directory structure, thanks
-[Kevin](https://github.com/rockwood).
+[Kevin](https://github.com/rockwood).  Also added a unique copy of the
+options for each call to the helper, thanks [Ken](https://github.com/elfsternberg).
 
 0.0.3 - added relative compilation and compound file suffixes, thanks
 [Pete](https://github.com/petebacondarwin).  Also added real error
