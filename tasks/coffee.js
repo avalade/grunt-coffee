@@ -44,7 +44,11 @@ module.exports = function(grunt) {
     extension = extension ? extension : '.js';
 
     if( destPath && options.preserve_dirs ){
-      destPath = path.join(destPath, path.dirname(src));
+      var dirname = path.dirname(src);
+      if ( options.base_path ) {
+        dirname = dirname.replace(new RegExp('^'+options.base_path), '');
+      }
+      destPath = path.join(destPath, dirname);
     } else if( !destPath ){
       destPath = path.dirname(src);
     }
