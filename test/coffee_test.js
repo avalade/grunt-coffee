@@ -56,7 +56,7 @@ exports['coffee'] = {
         }
         helper(filesToDelete);
       }
-      
+
       helper(filesToDelete);
     };
 
@@ -107,12 +107,12 @@ exports['coffee'] = {
   'helper-dirs-base': function(test) {
     var base = 'test';
     test.expect(1);
-    grunt.helper('coffee', 
-                 [src], 
-                 outputFolder, 
-                 { 
-                   preserve_dirs:true, 
-                   base_path:base 
+    grunt.helper('coffee',
+                 [src],
+                 outputFolder,
+                 {
+                   preserve_dirs:true,
+                   base_path:base
                  });
     test.equal(
       grunt.file.read(
@@ -124,9 +124,14 @@ exports['coffee'] = {
   },
 
   'helper-extension': function(test) {
-    test.expect(1);
-    grunt.helper('coffee', [src], outputFolder, {}, '.coffee.js');
+    test.expect(2);
+
+    grunt.helper('coffee', [src], outputFolder, { extension: '.coffee.js' });
     test.ok(fs.existsSync(path.join(outputFolder, "hello_world.coffee.js")));
+
+    grunt.helper('coffee', ['test/fixtures/hello_world.js.coffee'], outputFolder, { extension: '' });
+    test.ok(fs.existsSync(path.join(outputFolder, "hello_world.js")));
+
     test.done();
   }
 };

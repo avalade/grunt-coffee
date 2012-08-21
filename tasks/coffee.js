@@ -36,12 +36,12 @@ module.exports = function(grunt) {
   // HELPERS
   // ==========================================================================
 
-  grunt.registerHelper('coffee', function(src, destPath, options, extension) {
+  grunt.registerHelper('coffee', function(src, destPath, options) {
     var coffee = require('coffee-script'),
         js = '';
 
     options = options || {};
-    extension = extension ? extension : '.js';
+    extension = options.extension || options.extension == '' ? options.extension : '.js';
 
     if( destPath && options.preserve_dirs ){
       var dirname = path.dirname(src);
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     }
 
     var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
-    
+
     if( options.bare !== false ) {
       options.bare = true;
     }
