@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/avalade/grunt-coffee.png)](http://travis-ci.org/avalade/grunt-coffee)
 # grunt-coffee
 
 JavaScripts your Coffee
