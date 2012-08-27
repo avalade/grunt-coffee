@@ -25,6 +25,7 @@ fs.existsSync = fs.existsSync ? fs.existsSync : path.existsSync;
 */
 
 var src = 'test/fixtures/hello_world.coffee';
+var srcJs = 'test/fixtures/empty_extension.js';
 var outputFolder = 'tmp/js';
 var expectedJSFile = 'test/fixtures/hello_world.js';
 
@@ -127,6 +128,13 @@ exports['coffee'] = {
     test.expect(1);
     grunt.helper('coffee', [src], outputFolder, {}, '.coffee.js');
     test.ok(fs.existsSync(path.join(outputFolder, "hello_world.coffee.js")));
+    test.done();
+  },
+
+  'helper-empty-string-extension': function(test) {
+    test.expect(1);
+    grunt.helper('coffee', [srcJs], outputFolder, {}, '');
+    test.ok(fs.existsSync(path.join(outputFolder, "empty_extension.js")));
     test.done();
   }
 };
