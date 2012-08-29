@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         js = '';
 
     options = options || {};
-    extension = extension ? extension : '.js';
+    extension = typeof extension === "string" ? extension : '.js';
 
     if( destPath && options.preserve_dirs ){
       var dirname = path.dirname(src);
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     }
 
     var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
-    
+
     if( options.bare !== false ) {
       options.bare = true;
     }
