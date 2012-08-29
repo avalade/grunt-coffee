@@ -25,6 +25,8 @@ fs.existsSync = fs.existsSync ? fs.existsSync : path.existsSync;
 */
 
 var src = 'test/fixtures/hello_world.coffee';
+var dupExtSrc = 'test/fixtures/duplicate_extension.js.coffee';
+var jsSrc = 'test/fixtures/js_hello_world.js';
 var outputFolder = 'tmp/js';
 var expectedJSFile = 'test/fixtures/hello_world.js';
 
@@ -127,6 +129,25 @@ exports['coffee'] = {
     test.expect(1);
     grunt.helper('coffee', [src], outputFolder, {}, '.coffee.js');
     test.ok(fs.existsSync(path.join(outputFolder, "hello_world.coffee.js")));
+    test.done();
+  },
+
+  'helper-duplicate-extension': function(test) {
+    test.expect(1);
+    grunt.helper('coffee', [dupExtSrc], outputFolder, {});
+    test.ok(fs.existsSync(path.join(outputFolder, "duplicate_extension.js")));
+    test.done();
+  },
+
+  'helper-js-file-passthrough': function(test) {
+    test.expect(2);
+    grunt.helper('coffee', [jsSrc], outputFolder, {preserve_dirs: true});
+    test.ok(fs.existsSync(path.join(outputFolder, jsSrc)));
+    test.equal(
+      grunt.file.read(path.join(outputFolder, jsSrc)),
+      'console.log("Hello world!");\n',
+      'it should just copy javascript files'
+    );
     test.done();
   }
 };
