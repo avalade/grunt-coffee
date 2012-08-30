@@ -69,6 +69,8 @@ This will create the files under `where/you/want/your/js/files/coffee/files/`.
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
+0.0.6 - addressed when Javascript files are included in the src matcher, thanks [Enleur](https://github.com/Enleur) and [brewster1134](https://github.com/brewster1134)
+
 0.0.5 - added `base_path` option, thanks
 [siriux](https://github.com/siriux) and
 [William](https://github.com/wlepinski).
