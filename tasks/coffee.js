@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         js = '';
 
     options = options || {};
-    extension = extension ? extension : '.js';
+    extension = typeof extension === "undefined" ? '.js' : extension;
 
     if( destPath && options.preserve_dirs ){
       var dirname = path.dirname(src);
@@ -54,7 +54,17 @@ module.exports = function(grunt) {
     }
 
     var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
-    
+
+    // De-dup dest if we have .js.js - see issue #16
+    if (dest.match(/\.js\.js/)) {
+      dest = dest.replace(/\.js\.js/, ".js");
+    }
+
+    if (path.extname(src) === '.js') {
+      grunt.file.copy(src, dest);
+      return true;
+    }
+
     if( options.bare !== false ) {
       options.bare = true;
     }
