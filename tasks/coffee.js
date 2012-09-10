@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     extension = typeof extension === "undefined" ? '.js' : extension;
 
     if( destPath && options.preserve_dirs ){
-      var dirname = path.dirname(src);
+      var dirname = path.dirname(src) + '/';
       if ( options.base_path ) {
         dirname = dirname.replace(new RegExp('^'+options.base_path), '');
       }
