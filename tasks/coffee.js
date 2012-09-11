@@ -8,6 +8,8 @@
 
 module.exports = function(grunt) {
   var path = require('path');
+  var isWindows = process.platform === "win32";
+  var pathsep = path.sep || isWindows ? '\\' : '/';
 
   // Please see the grunt documentation for more information regarding task and
   // helper creation: https://github.com/cowboy/grunt/blob/master/docs/toc.md
@@ -44,9 +46,11 @@ module.exports = function(grunt) {
     extension = typeof extension === "undefined" ? '.js' : extension;
 
     if( destPath && options.preserve_dirs ){
-      var dirname = path.dirname(src) + '/';
+      var dirname = path.normalize(path.dirname(src)) + pathsep;
       if ( options.base_path ) {
-        dirname = dirname.replace(new RegExp('^'+options.base_path), '');
+        //on Windows, path.sep must be escaped in a regex
+        var safeRegex = path.normalize(options.base_path).replace(/\\/g, "\\\\");
+        dirname = dirname.replace(new RegExp('^' + safeRegex), '');
       }
       destPath = path.join(destPath, dirname);
     } else if( !destPath ){
