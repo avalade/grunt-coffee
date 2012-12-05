@@ -7,7 +7,8 @@
  */
 
 module.exports = function(grunt) {
-  var path = require('path');
+  var path = require('path'),
+      compile;
 
   // Please see the grunt documentation for more information regarding task and
   // helper creation: https://github.com/cowboy/grunt/blob/master/docs/toc.md
@@ -22,7 +23,7 @@ module.exports = function(grunt) {
         extension = this.data.extension;
 
     grunt.file.expandFiles(this.file.src).forEach(function(filepath) {
-      grunt.helper('coffee', filepath, dest, grunt.utils._.clone(options), extension);
+      compile(filepath, dest, grunt.util._.clone(options), extension);
     });
 
     if (grunt.task.current.errorCount) {
@@ -36,7 +37,7 @@ module.exports = function(grunt) {
   // HELPERS
   // ==========================================================================
 
-  grunt.registerHelper('coffee', function(src, destPath, options, extension) {
+  compile = function(src, destPath, options, extension) {
     var coffee = require('coffee-script'),
         js = '';
 
@@ -77,6 +78,6 @@ module.exports = function(grunt) {
       grunt.log.error("Error in " + src + ":\n" + e);
       return false;
     }
-  });
+  };
 
 };
