@@ -1,3 +1,9 @@
+# No Longer Maintained
+ 
+Hi everyone.  This repository is no longer maintained as there's the excellent 
+[grunt-contrib-coffee](https://github.com/gruntjs/grunt-contrib-coffee) that is maintained by the actual gruntjs
+team.  Please use that going forward and thanks.
+
 [![build status](https://secure.travis-ci.org/avalade/grunt-coffee.png)](http://travis-ci.org/avalade/grunt-coffee)
 # grunt-coffee
 
