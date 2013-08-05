@@ -52,6 +52,12 @@ module.exports = function(grunt) {
     } else if( !destPath ){
       destPath = path.dirname(src);
     }
+    
+    function testIt(){
+      function destPath(testVar){
+        return 'no';
+      }
+    }
 
     var dest = path.join(destPath, path.basename(src, '.coffee') + extension);
 
